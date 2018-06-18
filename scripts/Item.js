@@ -1,10 +1,10 @@
 'use strict';
 
-const item = (function () {
+const Item = (function () {
 
   const validateName = function(){
 
-        
+
     if(typeof name === 'undefined'){
 
       throw new Error ('Name does not exist');

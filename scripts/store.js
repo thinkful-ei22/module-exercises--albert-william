@@ -1,5 +1,5 @@
 'use strict';
-
+// global shopping-list Item index
 
 const store = (function () {
 
@@ -10,12 +10,54 @@ const store = (function () {
     { id: cuid(), name: 'bread', checked: false }
   ];
 
-  const hideCheckedItems= function(){};
-  const searchTerm = function(){};
+  const findById = function(id){
+    return store.items.find( val => val.id === id );
+  };
 
 
-return {
- items, hideCheckedItems, searchTerm
-}
+  const addItem = function (name){
+    try {
+      Item.validateName(name);
+      store.items.push(Item.create(name));
+    } catch(error){
+      console.log ('Cannot add item: ' + error.message);
+    }
+  };
+
+  const findAndToggleChecked = function (id) {
+    const itemsToBeChecked  = this.findById(id);
+    itemsToBeChecked.checked = !itemsToBeChecked.checked;
+
+  };
+
+  const findAndUpdateName = function(id, newName){
+    try {
+      Item.validateName(newName);
+      const updateName =  this.findById(id);
+      this.name = updateName;
+    } catch(error){
+      console.log ('Cannot add item: ' + error.message);
+    }
+  };
+
+  const findAndDelete = function(id) {
+    const itemIndex = store.items.findIndex( function (elem)
+    {
+      return elem === id;
+
+    });
+    store.items.splice(itemIndex, 1);
+  };
+
+
+
+  const hideCheckedItems= false;
+  const searchTerm = '';
+
+
+  return {
+    items, hideCheckedItems, searchTerm, findById, addItem,
+    findAndToggleChecked, findAndUpdateName, findAndDelete
+  };
 
 }());
