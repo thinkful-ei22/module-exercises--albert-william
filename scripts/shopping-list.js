@@ -1,7 +1,12 @@
-/* global store, cuid */
+'use strict';
+//global store, cuid
 
 // eslint-disable-next-line no-unused-vars
+
 const shoppingList = (function(){
+
+
+  
 
   function generateItemElement(item) {
     let itemTitle = `<span class="shopping-item shopping-item__checked">${item.name}</span>`;
@@ -56,6 +61,17 @@ const shoppingList = (function(){
   
   
   function addItemToShoppingList(itemName) {
+
+    try{
+      Item.validateName(input);
+      const itemInProgress = Item.create();
+      store.items.push(itemInProgress);
+      render();
+    }
+  
+    catch(e){
+      console.log('Cannot add item: {error.message}');
+    }
     store.items.push({ id: cuid(), name: itemName, checked: false });
   }
   
@@ -158,5 +174,7 @@ const shoppingList = (function(){
   return {
     render: render,
     bindEventListeners: bindEventListeners,
+  
   };
 }());
+console.log(shoppingList);

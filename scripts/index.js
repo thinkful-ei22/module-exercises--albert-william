@@ -13,6 +13,7 @@
 // };
 
 $(document).ready(function() {
+shoppingList.render();
   shoppingList.bindEventListeners();
   shoppingList.render();
 });
